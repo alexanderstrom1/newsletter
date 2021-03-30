@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit admin form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Update Newsletter</h2>
+    <a href="/news">Show all news</a>
+    {{#newsletters}}
+        <form method="POST" action="/updatenews">
+            <table class="table">
+                <tr>
+                    <td>ID: <input type="text" name="id" value="{{id}}" readonly></td>
+                </tr>
+                <tr>
+                    <td>Company: <input type="text" name="company" value="{{company}}"></td>
+                </tr>
+                <tr>
+                    <td>Email: <input type="text" name="text" value={{text}}></td>
+                </tr>
+
+                <tr>
+                    <td><input type="submit" name="submit" value="Update Newsletter" class="btn btn-secondary"></td>
+                </tr>
+            </table>
+            {{#_csrf}}
+                <input type="hidden" name="{{parameterName}}" value="{{token}}"/>
+            {{/_csrf}}
+        </form>
+    {{/newsletters}}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Addform</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Add a new Newspaper</h2>
+
+    <form method="POST" action="/addnewspaper">
+        <table class="table">
+            <tr>
+                <td>Company: <input type="text" name="company"></td>
+            </tr>
+            <tr>
+                <td>Text: <input type="text" name="text"></td>
+            </tr>
+            <tr>
+                <td>Your admin Id: <input type="number" name="adminId"></td>
+            </tr>
+
+
+            <tr>
+                <td><input type="submit" name="submit" value="Add new newspaper" class="btn btn-secondary"></td>
+            </tr>
+        </table>
+        {{#_csrf}}
+            <input type="hidden" name="{{parameterName}}" value="{{token}}"/>
+        {{/_csrf}}
+    </form>
+
+    <a href="/news">Show all news</a>
+    <a href="/admins">Show all admins</a>
+    <p>To delete a newspaper, type /deletenews/{id}</p>
+
+
+</div>
+</body>
+</html>

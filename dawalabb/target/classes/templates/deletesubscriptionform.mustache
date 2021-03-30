@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Delete Subscription</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Please enter your email to confirm you want to delete subscription</h2>
+
+    <form method="POST" action="/deletesubscriber">
+        <table class="table">
+            <tr>
+                <td>Email: <input type="text" name="email"></td>
+            </tr>
+
+
+
+            <tr>
+                <td><input type="submit" name="submit" value="Delete subscription" class="btn btn-secondary"></td>
+            </tr>
+        </table>
+        {{#_csrf}}
+            <input type="hidden" name="{{parameterName}}" value="{{token}}"/>
+        {{/_csrf}}
+    </form>
+
+    <a href="/news">Show all news</a>
+
+
+
+</div>
+</body>
+</html>

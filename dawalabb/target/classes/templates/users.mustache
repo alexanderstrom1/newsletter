@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>News lab</title>
+
+</head>
+<body>
+<div class="container">
+    <h2>Our Users</h2>
+    <a href="/news">Go to news</a>
+    <a href="/addform">Add an admin!</a>
+    <a href="/admins">Show all admins</a>
+    <table class="table table-striped">
+        {{#users}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{name}}</td>
+                <td>{{email}}</td>
+            </tr>
+
+        {{/users}}
+
+    </table>
+
+</div>
+</body>
+</html>

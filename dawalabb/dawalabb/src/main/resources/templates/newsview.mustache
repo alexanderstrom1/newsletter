@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>News lab</title>
+
+</head>
+<body>
+<div class="container">
+    <h2>Our News</h2>
+    <table class="table table-striped">
+        {{#newsletters}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{company}}</td>
+                <td>{{text}}</td>
+            </tr>
+
+        {{/newsletters}}
+
+    </table>
+
+</div>
+</body>
+</html>
