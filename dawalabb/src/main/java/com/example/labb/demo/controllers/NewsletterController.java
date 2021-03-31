@@ -6,7 +6,6 @@ import com.example.labb.demo.models.Subscriber;
 import com.example.labb.demo.repostiories.AdminRowMapper;
 import com.example.labb.demo.repostiories.NewsletterRowMapper;
 import com.example.labb.demo.repostiories.SubscriberRowMapper;
-import com.example.labb.demo.service.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 @Controller
@@ -34,9 +32,6 @@ public class NewsletterController {
     public void setNamedParameterJdbcTemplate (NamedParameterJdbcTemplate namedParameterJdbcTemplate){
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
-    @Autowired
-    SendEmail sendEmail;
-
     @GetMapping(value = "/news")
     public String showAllNews (Model model, Principal loggedInUser, Authentication authentication){
         List<Newsletters> myNewsletters = namedParameterJdbcTemplate.query("SELECT * FROM newsletter", new NewsletterRowMapper());
@@ -60,7 +55,7 @@ public class NewsletterController {
     }
 
     @PostMapping(value = "/addnewspaper")
-    public String addNewNewspaper(@ModelAttribute Newsletters newsletters, Subscriber subscriber) {
+    public String addNewNewspaper(@ModelAttribute Newsletters newsletters){
         String insertSQLNews = "INSERT INTO newsletter (company, text, adminId)VALUES(:company, :text, :adminId)";
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("company", newsletters.getCompany());
@@ -68,21 +63,9 @@ public class NewsletterController {
         parameters.addValue("adminId", newsletters.getAdminId());
         namedParameterJdbcTemplate.update(insertSQLNews, parameters);
 
-        //  String selectSQLSubscriberMail = "SELECT * FROM subscriber WHERE company =:myCompany";
-        //MapSqlParameterSource parameterss = new MapSqlParameterSource();
-        //parameters.addValue("myCompany", newsletters.getCompany());
-        List<Subscriber> subscribers = namedParameterJdbcTemplate.query("SELECT * FROM subscriber", new SubscriberRowMapper());
-        for (Subscriber s : subscribers) {
-            if (s.getCompany().equals(newsletters.getCompany())) {
-                System.out.println("1");
-                sendEmail.sendMail(s.getEmail(), "A new newspaper has that you are subscribed to has been added!", "A newspaper from " + newsletters.getCompany()+ " has been added to the webapp!");
 
-            }
-
-
-        }//End addnewspaper
         return "redirect:/news";
-    }
+    }//End addnewspaper
     @GetMapping(value="/newseditform/{id}")
     public String showEditFormByNewsId(@PathVariable String id, Model model){
         String selectSQLNewsById = "SELECT * FROM newsletter WHERE id =:myid";
